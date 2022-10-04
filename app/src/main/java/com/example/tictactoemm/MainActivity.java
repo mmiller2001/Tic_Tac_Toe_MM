@@ -1,5 +1,6 @@
 package com.example.tictactoemm;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -154,5 +155,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         player2Points = 0;
         updatePointsText();
         resetBoard();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("roundCount",roundCount);
+        outState.putInt("player1Points", player1Points);
+        outState.putInt("player2Points",player2Points);
+        outState.putBoolean("player1Turn",player1Turn);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        roundCount = savedInstanceState.getInt("roundCount");
+        player1Points = savedInstanceState.getInt("player1Points");
+        player2Points = savedInstanceState.getInt("player2Points");
+        player1Turn = savedInstanceState.getBoolean("player1Turn");
     }
 }
