@@ -3,11 +3,18 @@ package com.example.tictactoemm;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView textViewPlayer1;
     private TextView textViewPlayer2;
+
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +64,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (player1Turn) {
-            ((Button)v).setText("X");
+            ((Button)v).setText("♚");
+            ((Button)v).setBackgroundColor(Color.BLACK);
         } else {
-            ((Button)v).setText("O");
+            ((Button)v).setText("♜");
+            ((Button)v).setBackgroundColor(Color.RED);
         }
 
         roundCount++;
@@ -118,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void player1Wins() {
         player1Points++;
         Toast.makeText(this, "Player 1 wins!", Toast.LENGTH_SHORT).show();
+        player = MediaPlayer.create(this,R.raw.erenjaegar);
+        player.start();
         updatePointsText();
         resetBoard();
     }
@@ -125,12 +138,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void player2Wins() {
         player2Points++;
         Toast.makeText(this, "Player 2 wins!", Toast.LENGTH_SHORT).show();
+        player = MediaPlayer.create(this,R.raw.oioioi);
+        player.start();
         updatePointsText();
         resetBoard();
     }
 
     private void draw() {
         Toast.makeText(this,"Draw!", Toast.LENGTH_SHORT).show();
+        player = MediaPlayer.create(this,R.raw.fail);
+        player.start();
         resetBoard();
     }
 
@@ -140,9 +157,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void resetBoard() {
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++) {
                 buttons[i][j].setText("");
+                buttons[i][j].setBackgroundColor(color);
             }
         }
 
