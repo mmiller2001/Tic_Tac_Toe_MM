@@ -85,7 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //player2Wins();
             }
         } else if (roundCount == 9) {
-            draw();
+            waitingTie(v);
+            //draw();
         } else {
             player1Turn = !player1Turn;
         }
@@ -141,6 +142,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mhandler.postDelayed(mToastRunnable2,3000);
     }
 
+    public void waitingTie(View v) {
+        mhandler.postDelayed(mToastRunnable3,3000);
+    }
+
 
     private Runnable mToastRunnable = new Runnable() {
         @Override
@@ -153,6 +158,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void run() {
             player2Wins();
+        }
+    };
+
+    private Runnable mToastRunnable3 = new Runnable() {
+        @Override
+        public void run() {
+            draw();
         }
     };
 
