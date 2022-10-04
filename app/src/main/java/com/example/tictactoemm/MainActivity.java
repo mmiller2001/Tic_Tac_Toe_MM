@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewPlayer2;
 
     MediaPlayer player;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +129,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
+    private Handler mhandler = new Handler();
+
+//    public void startWaiting(View v) {
+//        mhandler.postDelayed(player1Wins,5000);
+//    }
+
+
+
     private void player1Wins() {
+        //mhandler.postDelayed(player1Points, 5000);
         player1Points++;
         Toast.makeText(this, "Player 1 wins!", Toast.LENGTH_SHORT).show();
         player = MediaPlayer.create(this,R.raw.erenjaegar);
