@@ -78,9 +78,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(checkForWin()) {
             if(player1Turn) {
-                player1Wins();
+                waitingPlayer1(v);
+                //player1Wins();
             } else {
-                player2Wins();
+                waitingPlayer2(v);
+                //player2Wins();
             }
         } else if (roundCount == 9) {
             draw();
@@ -131,14 +133,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Handler mhandler = new Handler();
 
-//    public void startWaiting(View v) {
-//        mhandler.postDelayed(player1Wins,5000);
-//    }
+    public void waitingPlayer1(View v) {
+        mhandler.postDelayed(mToastRunnable,3000);
+    }
+
+    public void waitingPlayer2(View v) {
+        mhandler.postDelayed(mToastRunnable2,3000);
+    }
 
 
+    private Runnable mToastRunnable = new Runnable() {
+        @Override
+        public void run() {
+            player1Wins();
+        }
+    };
+
+    private Runnable mToastRunnable2 = new Runnable() {
+        @Override
+        public void run() {
+            player2Wins();
+        }
+    };
 
     private void player1Wins() {
-        //mhandler.postDelayed(player1Points, 5000);
+
         player1Points++;
         Toast.makeText(this, "Player 1 wins!", Toast.LENGTH_SHORT).show();
         player = MediaPlayer.create(this,R.raw.erenjaegar);
